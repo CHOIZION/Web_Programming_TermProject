@@ -4,25 +4,21 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" /> <!-- 기본 스타일 -->
-    <link rel="stylesheet" href="login.css" /> <!-- 로그인 전용 스타일 -->
+    <link rel="stylesheet" href="login.css" />
     <link rel="icon" href="../img/fav.png" type="image/x-icon" />
-    <link
-      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
-      rel="stylesheet"
-    />
     <title>Login | Zion Games🎮</title>
   </head>
   <body>
     <div class="login-container">
-      <h2>Zion Games<br>로그인하기</h2>
-      <form action="real_index.html" method="GET">
-        <input type="text" placeholder="Username" required />
-        <input type="password" placeholder="Password" required />
+      <h2>Zion Games<br />로그인하기</h2>
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required />
+        <input type="password" id="password" placeholder="Password" required />
         <button type="submit">로그인</button>
       </form>
-      <a href="../Lost_Password_Page/Lost_Password_Page.html">비밀번호를 잊어버리셨나요?</a>
-      <a href="../Register_Page/Register_Page.html" class="register-btn">회원가입 하기</a>
+      <a href="../Register_Page/Register_Page.html">회원가입 하기</a>
     </div>
+
+    <script src="login.js"></script>
   </body>
 </html>

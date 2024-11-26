@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>뱀 게임</title>
+    <style>
+        body {
+            background-color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ecf0f1;
+        }
+        #gameContainer {
+            position: relative;
+            text-align: center;
+        }
+        canvas {
+            background-color: #34495e;
+            display: block;
+            margin: 0 auto;
+            border: 2px solid #ecf0f1;
+            border-radius: 10px;
+        }
+        #score {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ecf0f1;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px #000;
+        }
+        /* 모달 스타일 */
+        #gameOverModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.3s;
+            z-index: 10;
+        }
+        #gameOverModal.show {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-content {
+            background: #ecf0f1;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            color: #2c3e50;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .modal-content h2 {
+            margin-bottom: 20px;
+        }
+        .modal-content button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2980b9;
+            color: #ecf0f1;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .modal-content button:hover {
+            background-color: #3498db;
+        }
+        .modal-content button.no {
+            background-color: #c0392b;
+        }
+        .modal-content button.no:hover {
+            background-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="score">점수: 0</div>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+    </div>
+
+    <!-- 게임 오버 모달 -->
+    <div id="gameOverModal">
+        <div class="modal-content">
+            <h2>게임 오버!</h2>
+            <p>다시 시작하시겠습니까?</p>
+            <button id="restartBtn">예</button>
+            <button id="exitBtn" class="no">아니오</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const gameOverModal = document.getElementById('gameOverModal');
+        const restartBtn = document.getElementById('restartBtn');
+        const exitBtn = document.getElementById('exitBtn');
+
+        const grid = 20;
+        let count = 0;
+        let score = 0;
+        let animationId;
+
+        let snake, apple;
+
+        function init() {
+            snake = {
+                x: 160,
+                y: 160,
+                dx: grid,
+                dy: 0,
+                cells: [],
+                maxCells: 4
+            };
+
+            apple = {
+                x: getRandomInt(0, canvas.width / grid) * grid,
+                y: getRandomInt(0, canvas.height / grid) * grid
+            };
+
+            score = 0;
+            scoreElement.textContent = '점수: ' + score;
+        }
+
+        // 랜덤 위치 생성 함수
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        // 게임 루프
+        function loop() {
+            animationId = requestAnimationFrame(loop);
+
+            // 게임 속도 조절
+            if (++count < 4) {
+                return;
+            }
+            count = 0;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 이동
+            snake.x += snake.dx;
+            snake.y += snake.dy;
+
+            // 벽 충돌 처리 (게임 오버)
+            if (snake.x < 0 || snake.x >= canvas.width || snake.y < 0 || snake.y >= canvas.height) {
+                gameOver();
+                return;
+            }
+
+            // 몸통 추가
+            snake.cells.unshift({x: snake.x, y: snake.y});
+
+            // 최대 길이 유지
+            if (snake.cells.length > snake.maxCells) {
+                snake.cells.pop();
+            }
+
+            // 사과 그리기
+            ctx.fillStyle = 'red';
+            ctx.fillRect(apple.x, apple.y, grid-1, grid-1);
+
+            // 뱀 그리기
+            ctx.fillStyle = 'lime';
+            snake.cells.forEach((cell, index) => {
+                ctx.fillRect(cell.x, cell.y, grid-1, grid-1);  
+
+                // 머리가 몸통과 충돌하면 게임 오버
+                for (let i = index + 1; i < snake.cells.length; i++) {
+                    if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
+                        gameOver();
+                        return;
+                    }
+                }
+
+                // 사과 먹기
+                if (cell.x === apple.x && cell.y === apple.y) {
+                    snake.maxCells++;
+                    score++;
+                    scoreElement.textContent = '점수: ' + score;
+                    apple.x = getRandomInt(0, canvas.width / grid) * grid;
+                    apple.y = getRandomInt(0, canvas.height / grid) * grid;
+
+                    // 사과가 뱀과 겹치지 않도록 재배치
+                    snake.cells.forEach(function(cell) {
+                        if (cell.x === apple.x && cell.y === apple.y) {
+                            apple.x = getRandomInt(0, canvas.width / grid) * grid;
+                            apple.y = getRandomInt(0, canvas.height / grid) * grid;
+                        }
+                    });
+                }
+            });
+        }
+
+        // 게임 오버 처리
+        function gameOver() {
+            cancelAnimationFrame(animationId);
+            gameOverModal.classList.add('show');
+        }
+
+        // 다시 시작
+        restartBtn.addEventListener('click', function() {
+            gameOverModal.classList.remove('show');
+            init();
+            requestAnimationFrame(loop);
+        });
+
+        // 게임 종료 (아니오 버튼)
+        exitBtn.addEventListener('click', function() {
+            gameOverModal.classList.remove('show');
+            // 추가적으로 원하는 동작을 여기에 작성할 수 있습니다.
+            // 예: 페이지를 리로드하거나 다른 페이지로 이동
+            // 여기서는 단순히 알림을 표시합니다.
+            alert('게임을 종료합니다.');
+        });
+
+        // 키보드 입력 처리
+        document.addEventListener('keydown', function(e) {
+            // 방향키만 처리
+            if (e.which === 37 && snake.dx === 0) { // 왼쪽
+                snake.dx = -grid;
+                snake.dy = 0;
+            }
+            else if (e.which === 38 && snake.dy === 0) { // 위
+                snake.dy = -grid;
+                snake.dx = 0;
+            }
+            else if (e.which === 39 && snake.dx === 0) { // 오른쪽
+                snake.dx = grid;
+                snake.dy = 0;
+            }
+            else if (e.which === 40 && snake.dy === 0) { // 아래
+                snake.dy = grid;
+                snake.dx = 0;
+            }
+        });
+
+        // 초기화 및 시작
+        init();
+        requestAnimationFrame(loop);
+    </script>
+</body>
+</html>

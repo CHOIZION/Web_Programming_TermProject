@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="Real_Game_Page1.css" />
+  <link rel="stylesheet" href="/Login_Page/real_index.css" />
+  <link rel="icon" href="/img/fav.png" type="image/x-icon" />
+  <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+  <script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
+
+  <title>CyberGamez | Gaming Website 🎮| Play Online & Download games for Free!</title>
+  <style>
+    /* iframe 스타일 추가 */
+    .game-iframe {
+      width: 100%;
+      height: 800px; /* 높이를 필요에 따라 조정 */
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 게임 정보 섹션 스타일 조정 */
+    .game-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 50px 20px;
+      background-color: #f0f0f0;
+      min-height: 100vh;
+    }
+
+    .game-details {
+      max-width: 800px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .game-details h2 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .game-details p {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    /* 반응형 디자인 */
+    @media (max-width: 768px) {
+      .game-iframe {
+        height: 600px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .game-iframe {
+        height: 400px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Custom Scrollbar -->
+  <div class="progress">
+    <div class="progress-bar" id="scroll-bar"></div>
+  </div>
+
+  <!-- Header Section -->
+  <header>
+    <div class="nav container">
+      <a href="index.html" class="logo">
+        🎮Zion
+        <span>Games</span>
+      </a>
+      <div class="nav-icons">
+        <i class="bx bx-bell bx-tada" id="bell-icon"><span></span></i>
+        <span class="welcome-admin">Welcome<br />Admin!</span>
+        <div class="menu-icon">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+      </div>
+      <!-- Menu -->
+      <div class="menu">
+        <img src="/img/menu.png" alt="Menu Image" />
+        <div class="navbar">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="/#trending-section" id="trending-section">Trending</a></li>
+          <li><a href="#latest-section" id="new-section">Latest</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#action-games" id="new-section">Action Games</a></li>
+          <li><a href="#contact_us">Contact Us</a></li>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Game Information Section -->
+  <section class="game-info container" id="game-info">
+    <div class="game-status">
+      <!-- 기존 버튼 및 제목 제거 -->
+      <!-- Snake 게임을 실행하는 iframe 추가 -->
+      <iframe src="/Login_Page/Real_Game_Page/Snake_Page/Snake.html" class="game-iframe" title="Snake Game"></iframe>
+    </div>
+
+    <div class="game-details">
+      <h2>사용자 점수 보관 기능</h2>
+      <p>각 게임 화면에 점수 표기란을 만들고, 사용자가 게임에서 점수를 획득하면 해당 점수를 화면에 기록합니다. 학생들은 로컬에서 점수를 유지하는 방법을 고민해야 하지만, 실제 점수 저장은 JavaScript 없이 시각적으로만 구현됩니다.</p>
+
+      <h2>게임 페이지</h2>
+      <p>게임 페이지는 나중에 JavaScript로 만들어지는 게임이라고 가정합니다 (지뢰 찾기, 벽돌 깨기, 갤러그 게임 등). 각 게임에는 "다시 하기" 또는 "메인 화면으로 돌아가기" 버튼을 배치합니다.</p>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <div class="copyright container">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
