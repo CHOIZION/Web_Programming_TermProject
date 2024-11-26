@@ -1,0 +1,77 @@
+/* Game Information Section */
+.game-info {
+    padding: 4rem 0;
+    text-align: center;
+    color: var(--text-color);
+    position: relative; /* 점수 표시를 위한 위치 기준 설정 */
+}
+
+.game-status {
+    background-color: var(--light-color);
+    padding: 20rem; /* 위아래 크기를 늘리기 위해 패딩값을 설정 */
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    position: relative; /* 점수 표시를 위한 위치 기준 설정 */
+}
+
+.game-status h1 {
+    font-size: 2rem;
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+/* 점수 표시 CSS */
+.score-display {
+    position: absolute;
+    top: 10px; /* 박스의 상단 여백 설정 */
+    right: 20px; /* 박스의 오른쪽 여백 설정 */
+    background-color: var(--dark-color);
+    color: var(--text-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* 게임 상태 안에 버튼 정렬 */
+.game-status .game-buttons {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column; /* 버튼을 세로로 배치 */
+    align-items: center;
+    gap: 1rem;
+}
+
+.game-buttons .btn {
+    background: var(--main-color);
+    color: #fff;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.game-buttons .btn:hover {
+    background: var(--light-color);
+}
+
+.game-details {
+    background-color: var(--dark-color);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.game-details h2 {
+    font-size: 1.5rem;
+    color: var(--main-color);
+    margin-bottom: 1rem;
+}
+
+.game-details p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+}
