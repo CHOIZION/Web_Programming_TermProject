@@ -1,0 +1,97 @@
+/* Register Page Background */
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom right, #1a2a6c, #b21f1f, #fdbb2d); /* 멋진 그라데이션 배경 */
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Register Container Styles */
+.register-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    background-color: rgba(0, 0, 0, 0.8); /* 반투명한 검은색 배경 */
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    text-align: center;
+}
+
+.register-container h2 {
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.register-container form {
+    width: 100%; /* 폼이 카드의 너비에 맞게 설정되도록 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 폼 내부 요소들을 중앙 정렬 */
+}
+
+.register-container input[type="text"],
+.register-container input[type="email"],
+.register-container input[type="password"] {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1.2rem;
+    border-radius: 0.5rem;
+    border: 1px solid #444;
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.register-container input[type="text"]:focus,
+.register-container input[type="email"]:focus,
+.register-container input[type="password"]:focus {
+    border: 1px solid var(--main-color);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.register-container button {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: var(--main-color);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.register-container button:hover {
+    background: var(--second-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.register-container a {
+    color: #ccc;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-top: 1rem;
+    transition: color 0.3s ease;
+}
+
+.register-container a:hover {
+    color: var(--main-color);
+}
